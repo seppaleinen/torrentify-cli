@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/lib'
+
+begin
+  puts 'MENU'
+end

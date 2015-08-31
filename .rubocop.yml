@@ -1,0 +1,11 @@
+AllCops:
+  Exclude:
+    - 'torrentify.gemspec'
+    - 'vendor/bundle/**/*'
+
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/ClassVars:
+  Enabled: false
