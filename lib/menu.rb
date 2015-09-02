@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'commander/import'
-require 'mechanize_manager'
+require 'torrentify'
 
 program :version, '0.1'
 program :description, 'Terminal-client for webscraping torrent-sites'
@@ -16,7 +16,7 @@ command :search do |c|
   c.action do |args|
     search_param = args.join(' ')
     puts search_param
-    MechanizeManager.new.search_kickass(search_param)
+    Torrentify.search(search_param)
     # Do something or c.when_called Torrentify-cli::Commands::Search
   end
 end
