@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/menu'
+
+begin
+  Menu.start
+end
