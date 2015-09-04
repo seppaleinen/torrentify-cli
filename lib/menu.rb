@@ -7,8 +7,8 @@ require 'torrentify'
 program :version, '0.1'
 program :description, 'Terminal-client for webscraping torrent-sites'
 
+# Module responsible for client communication
 module Menu
-
   def self.start
     command :search do |c|
       c.syntax = 'torrentify-cli search [options]'
