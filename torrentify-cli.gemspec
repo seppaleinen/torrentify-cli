@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls', '0.8.2'
   spec.add_development_dependency 'rspec', '3.3.0'
   spec.add_development_dependency 'test-unit', '3.1.3'
-  spec.add_development_dependency 'rubocop', '~> 0.33.0'
+  spec.add_development_dependency 'rubocop', '~> 0.34.0'
 end
