@@ -3,5 +3,5 @@
 require_relative '../lib/menu'
 
 begin
-  Menu.start
+  Menu.new.start
 end

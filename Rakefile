@@ -6,7 +6,7 @@ desc 'Clean, test and install app'
 task :default => [:test, :install]
 
 desc 'test'
-task :test => [:clean, :unitTest, :rubocop]
+task :test => [:clean, :unitTest, :specTest, :rubocop]
 
 desc 'Remove coverage and pkg dirs before compilation'
 task :clean do
@@ -24,6 +24,15 @@ Rake::TestTask.new(:unitTest) do |t|
   t.libs << 'test'
   t.verbose = false
   t.test_files = FileList['test/*_test.rb', 'test/sites/*_test.rb']
+end
+
+require 'rspec/core/rake_task'
+require 'rspec/core'
+desc 'Run RSpec tests'
+RSpec::Core::RakeTask.new(:specTest) do |t|
+  t.pattern = Dir.glob('spec/*_spec.rb')
+  t.rspec_opts = '--format documentation'
+  t.rspec_opts = '--color'
 end
 
 desc 'Run codeclimate - Sends coverage info to CodeClimate when in CI'

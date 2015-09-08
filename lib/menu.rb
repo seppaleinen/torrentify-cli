@@ -4,23 +4,29 @@ require 'rubygems'
 require 'commander/import'
 require 'torrentify'
 
-program :version, '0.1'
-program :description, 'Terminal-client for webscraping torrent-sites'
+# :name is optional, otherwise uses the basename of this executable
+class Menu
+  program :name, 'Foo Bar'
+  program :version, '1.0.0'
+  program :description, 'Stupid command that prints foo or bar.'
 
-# Module responsible for client communication
-module Menu
-  def self.start
+  def start
     command :search do |c|
-      c.syntax = 'torrentify-cli search [options]'
-      c.summary = ''
-      c.description = ''
-      c.example 'description', 'command example'
-      c.option '--some-switch', 'Some switch that does something'
-      c.action do |args|
-        search_param = args.join(' ')
-        puts search_param
-        Torrentify.search(search_param)
-        # Do something or c.when_called Torrentify-cli::Commands::Search
+      c.syntax = 'foobar foo'
+      c.description = 'Displays foo'
+      c.action do |args, options|
+        Torrentify.search args.first
+      end
+    end
+
+    command :bar do |c|
+      c.syntax = 'foobar bar [options]'
+      c.description = 'Display bar with optional prefix and suffix'
+      c.option '--prefix STRING', String, 'Adds a prefix to bar'
+      c.option '--suffix STRING', String, 'Adds a suffix to bar'
+      c.action do |args, options|
+        options.default :prefix => '(', :suffix => ')'
+        say "#{options.prefix}bar#{options.suffix}"
       end
     end
   end
