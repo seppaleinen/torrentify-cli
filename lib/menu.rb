@@ -14,7 +14,7 @@ class Menu
     command :search do |c|
       c.syntax = 'foobar foo'
       c.description = 'Displays foo'
-      c.action do |args, options|
+      c.action do |args|
         Torrentify.search args.first
       end
     end
@@ -24,8 +24,9 @@ class Menu
       c.description = 'Display bar with optional prefix and suffix'
       c.option '--prefix STRING', String, 'Adds a prefix to bar'
       c.option '--suffix STRING', String, 'Adds a suffix to bar'
-      c.action do |args, options|
+      c.action do |options|
         options.default :prefix => '(', :suffix => ')'
+        say args
         say "#{options.prefix}bar#{options.suffix}"
       end
     end
