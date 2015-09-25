@@ -15,7 +15,15 @@ class Menu
       c.syntax = 'foobar foo'
       c.description = 'Displays foo'
       c.action do |args|
-        Torrentify.search args.first
+        results = Torrentify.search args.first
+        results.each do |result|
+          puts '---------------------------------'
+          puts 'new search-engine'
+          puts '---------------------------------'
+          result.each do |torrent|
+            puts torrent.name
+          end
+        end
       end
     end
 
