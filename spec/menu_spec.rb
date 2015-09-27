@@ -4,17 +4,37 @@ require_relative '../lib/menu'
 RSpec.describe Menu do
   context 'start' do
     it '#start should be accessible' do
-      allow(Menu).to receive(:start).and_return('hej')
-      ARGV.replace %w{search hej}
-      result = Menu.new.start
-      # expect(result).to eql(Commander::Command:bar)
+      menu = double(Menu)
+      allow(menu).to receive(:start).and_return('hej')
+
+      result = menu.start
+
+      expect(result).to eql('hej')
     end
 
     it '#start should call torrentify' do
-      allow(Menu.new.start).to receive(:Torrentify).and_return('hej')
-      ARGV.replace %w{search hej}
-      result = Menu.new.start
+      ARGV.replace %w{search asd}
+
+      s = capture_stdout do
+        result = Menu.new.start
+      end
+
+      # expect(torrentify).to receive(:search).with('asd').and_return('då')
+
+      # expect(s.string).to eql('asd')
     end
   end
   
+end
+
+# Capture of stdout to STDOUT var
+module Kernel
+  def capture_stdout
+    out = StringIO.new
+    $stdout = out
+    yield
+    return out
+  ensure
+    $stdout = STDOUT
+  end
 end
