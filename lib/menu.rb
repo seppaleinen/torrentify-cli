@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'commander/import'
 require 'torrentify'
+require 'yaml'
 
 # :name is optional, otherwise uses the basename of this executable
 class Menu
@@ -20,7 +21,7 @@ class Menu
       c.syntax = 'foobar foo'
       c.description = 'Displays foo'
       c.action do |args|
-        results = @torrentify.search args.first
+        results = @torrentify.search args.join(' ')
         results.each do |result|
           puts '---------------------------------'
           puts 'new search-engine'
@@ -36,10 +37,17 @@ class Menu
       c.syntax = 'foobar foo'
       c.description = 'Displays foo'
       c.action do |args|
-        imdb_username = args.first
-        results = @torrentify.imdb_watchlist(imdb_username)
+        imdb_user_id = ''
+        if args.first.nil?
+          yaml = YAML.load_file('.settings.yml')
+          imdb_user_id = yaml['imdb_user_id'].first
+        else
+          imdb_user_id = args.first
+        end
+        results = @torrentify.imdb_watchlist(imdb_user_id)
         results.each do |result|
-          puts result
+          search_result = @torrentify.search_all_return_best(result)
+          puts search_result
         end
       end
     end

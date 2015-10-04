@@ -13,7 +13,7 @@ RSpec.describe Menu do
     end
 
     it '#start should call torrentify' do
-      ARGV.replace %w{search asd}
+      ARGV.replace %w{search a pigeon sat on a branch reflecting}
 
       s = capture_stdout do
         result = Menu.new.start
