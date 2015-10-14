@@ -42,7 +42,10 @@ class Menu
     command :imdb do |c|
       c.syntax = 'imdb userid'
       c.description = 'Searches torrents for all movies on imdb watchlist'
-      c.action do |args|
+      c.option '--option STRING', String, 'Displays ' \
+        'titles from imdb watchlist or search for torrents'
+      c.action do |args, options|
+        options.default :option => 'show'
         imdb_user_id = ''
         if args.first.nil?
           yaml = YAML.load_file('.settings.yml')
@@ -51,9 +54,15 @@ class Menu
           imdb_user_id = args.first
         end
         results = @torrentify.imdb_watchlist(imdb_user_id)
-        results.each do |result|
-          search_result = @torrentify.search_all_return_best(result)
-          puts search_result
+        if options.option == 'download'
+          results.each do |result|
+            search_result = @torrentify.search_all_return_best(result)
+            puts search_result
+          end
+        elsif options.option == 'show'
+          results.each do |result|
+            puts result
+          end
         end
       end
     end
