@@ -7,6 +7,10 @@ class SearchManager
 
     results = Torrentify.search(search_param, search_engine)
 
+    SearchManager.print_result(results)
+  end
+
+  def self.print_result(results)
     results.each do |result|
       puts '---------------------------------'
       puts 'new search-engine'
