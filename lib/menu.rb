@@ -5,17 +5,19 @@ require 'commander/import'
 require 'torrentify'
 require 'yaml'
 
-# :name is optional, otherwise uses the basename of this executable
+# Class responsible for the executable logic
 class Menu
   program :name, 'Torrentify'
   program :version, '1.0.0'
   program :description, 'Interface for searching through torrentsites.'
+  # Init file. Takes instance of backend class
   def initialize(torrentify = Torrentify)
     @torrentify = torrentify
   end
 
   attr_accessor :torrentify
 
+  # method with all command-logic
   def start
     command :search do |c|
       c.syntax = 'search foo'
