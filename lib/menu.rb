@@ -4,15 +4,19 @@ require 'rubygems'
 require 'commander/import'
 require 'torrentify'
 require 'yaml'
+require_relative 'managers/imdb_manager'
+require_relative 'managers/search_manager'
 
 # Class responsible for the executable logic
 class Menu
   program :name, 'Torrentify'
   program :version, '1.0.0'
   program :description, 'Interface for searching through torrentsites.'
-  # Init file. Takes torrentify as input parameter (backendclass responsible for logics)
+  # Init file. Takes torrentify as input parameter
   def initialize(torrentify = Torrentify)
     @torrentify = torrentify
+    @imdb_manager = ImdbManager.new
+    @search_manager = SearchManager.new
   end
 
   # Accessor for torrentify class instance
@@ -30,15 +34,7 @@ class Menu
       c.option '--search-engine ALL', String, 'Default. Searches all sites'
       c.action do |args, options|
         options.default :search_engine => 'ALL'
-        results = @torrentify.search args.join(' '), options.search_engine
-        results.each do |result|
-          puts '---------------------------------'
-          puts 'new search-engine'
-          puts '---------------------------------'
-          result.each do |torrent|
-            puts torrent
-          end
-        end
+        @search_manager.start(args, options.search_engine)
       end
     end
 
@@ -49,35 +45,7 @@ class Menu
         'titles from imdb watchlist or search for torrents'
       c.action do |args, options|
         options.default :option => 'show'
-        imdb_user_id = ''
-        if args.first.nil?
-          yaml = YAML.load_file('.settings.yml')
-          imdb_user_id = yaml['imdb_user_id'].first
-        else
-          imdb_user_id = args.first
-        end
-        results = @torrentify.imdb_watchlist(imdb_user_id)
-        if options.option == 'download'
-          results.each do |result|
-            search_result = @torrentify.search_all_return_best(result)
-            puts search_result
-          end
-        elsif options.option == 'show'
-          results.each do |result|
-            puts result
-          end
-        end
-      end
-    end
-
-    command :bar do |c|
-      c.syntax = 'foobar bar [options]'
-      c.description = 'Display bar with optional prefix and suffix'
-      c.option '--prefix STRING', String, 'Adds a prefix to bar'
-      c.option '--suffix STRING', String, 'Adds a suffix to bar'
-      c.action do |_args, options|
-        options.default :prefix => '(', :suffix => ')'
-        say "#{options.prefix}bar#{options.suffix}"
+        @imdb_manager.start(args.first, options.option)
       end
     end
   end
