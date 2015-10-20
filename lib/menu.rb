@@ -10,7 +10,7 @@ class Menu
   program :name, 'Torrentify'
   program :version, '1.0.0'
   program :description, 'Interface for searching through torrentsites.'
-  # Init file. Takes instance of backend class
+  # Init file. Takes torrentify as input parameter (backendclass responsible for logics)
   def initialize(torrentify = Torrentify)
     @torrentify = torrentify
   end
