@@ -15,6 +15,7 @@ class Menu
     @torrentify = torrentify
   end
 
+  # Accessor for torrentify class instance
   attr_accessor :torrentify
 
   # method with all command-logic
