@@ -26,15 +26,15 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'commander', '4.3.7'
+  spec.add_runtime_dependency 'commander', '4.4.0'
   spec.add_runtime_dependency 'torrentify', '0.5'
   spec.add_development_dependency 'simplecov', '0.11.2'
   spec.add_development_dependency 'bundler', '1.11.2'
   spec.add_development_dependency 'rake', '10.5.0'
-  spec.add_development_dependency 'codeclimate-test-reporter', '0.4.8'
-  spec.add_development_dependency 'coveralls', '0.8.10'
+  spec.add_development_dependency 'codeclimate-test-reporter', '0.5.0'
+  spec.add_development_dependency 'coveralls', '0.8.13'
   spec.add_development_dependency 'rspec', '3.4.0'
   spec.add_development_dependency 'test-unit', '3.1.7'
-  spec.add_development_dependency 'rubocop', '0.37.0'
+  spec.add_development_dependency 'rubocop', '0.37.2'
   spec.add_development_dependency 'webmock', '1.22.6'
 end
